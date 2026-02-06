@@ -10,7 +10,7 @@ export class RtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
       jwtFromRequest: ExtractJwt.fromExtractors([
         (req) => req?.cookies?.['refresh_token'],
       ]),
-      secretOrKey: 'super',
+      secretOrKey: 'superkey',
       passReqToCallback: true,
     });
   }

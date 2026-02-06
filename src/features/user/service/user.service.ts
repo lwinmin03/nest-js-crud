@@ -15,34 +15,38 @@ constructor(
 ){}
 
 
-async create(user:UserDto):Promise<UserResponse> {
-
-    const exist=await this.userRepo.findOne({where:{email:user.email}});
-
-    if(exist) {
-    throw new ConflictException()
-    }
-
-
-    const hashPwd=await argon2.hash(user.pwd,{type:argon2.argon2id})
-    const newUser={
-        ...user,
-        hashPwd
-    }
-
-     return this.userRepo.save(newUser) 
+async create(dto: UserDto): Promise<any> {
     
-     
+    const exist = await this.userRepo.findOne({ where: { email: dto.email } });
+    if (exist) {
+        throw new ConflictException('Email already exists');
+    }
+
+  
+    const hashPwd = await argon2.hash(dto.pwd, { type: argon2.argon2id });
+
+    const newUser:UserDto = this.userRepo.create({
+        email: dto.email,
+        pwd: hashPwd, 
+        role: dto.role,
+
+
+        
+        
+    });
+
+    
+    return await this.userRepo.save(newUser);
 }
 
 
-async fineOne(email:string):Promise <user | null>{
+async fineOne(email:string):Promise <any>{
     return await this.userRepo.findOne({where:{email:email}})
 }
 
 
-findAll():Promise <UserResponse[]>{
-const users=  this.userRepo.find({select:['id','email','role','provider']})
+findAll():Promise <any[]>{
+const users=  this.userRepo.find({select:['id','email','role','provider','pwd']})
 
  return users;
 

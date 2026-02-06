@@ -1,3 +1,3 @@
 import { user } from "../../entity/user.entity";
 
-export type UserResponse=Omit<user,'pwd'|'rtHash'>
+export type UserResponse=Omit<user,'pwd'|'rtHash'| 'ideas'>

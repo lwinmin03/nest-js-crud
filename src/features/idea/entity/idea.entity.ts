@@ -9,7 +9,7 @@ export class Idea {
     id:number
 
     @Column()
-    img:Url
+    img:string
     
     @Column({nullable:false})
     name:string
