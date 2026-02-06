@@ -1,5 +1,6 @@
 import { Role } from "src/common/enum/user.role.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Idea } from "src/features/idea/entity/idea.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class user{
@@ -26,6 +27,11 @@ role:Role
 
 @Column({default:'local'})
 provider:'local' | 'github'
+
+
+
+@OneToMany(()=>Idea,idea=>idea.id)
+ideas:Idea[]
 
 
 

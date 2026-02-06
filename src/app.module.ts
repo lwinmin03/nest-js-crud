@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { user } from './features/user/entity/user.entity';
 import { UserModule } from './features/user/user.module';
+import { Idea } from './features/idea/entity/idea.entity';
+import { IdeaModule } from './features/idea/idea.module';
 
 @Module({
   imports: [
@@ -14,13 +14,14 @@ import { UserModule } from './features/user/user.module';
       host:'localhost',
       port:5432,
       database:'my_new_db',
-      entities:[user],
+      entities:[user,Idea],
       synchronize:true,
       
     }),
-    UserModule
+    UserModule,
+    IdeaModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
